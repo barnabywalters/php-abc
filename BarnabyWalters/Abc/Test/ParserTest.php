@@ -12,18 +12,40 @@ require __DIR__ . '/../Parser.php';
  * @author Barnaby Walters
  */
 class ParserTest extends \PHPUnit_Framework_TestCase {
-    public function testParsesKHeader() {
-        $test = <<<EOT
-K:G
-abc|def
-EOT;
-        $expected = [
-            'K' => ['G']
-        ];
-        
-        $result = Parser::getHeaders($test);
+    /**
+     * @dataProvider parseTests
+     * @param array $expected
+     * @param string $abc
+     */
+    public function testParsing(array $expected, $abc) {
+        $result = Parser::getHeaders($abc);
         
         $this->assertEquals($result, $expected);
+    }
+    
+    public function parseTests() {
+        return [
+            // Test Parses Single Header
+            [
+                ['K' => ['G']],
+                <<<EOT
+K:G
+abc|def
+EOT
+            ],
+            // Test Ignores Blank Lines
+            [
+                [
+                    'T' => ['Title'],
+                    'K' => ['A']
+                ],
+                <<<EOT
+T:Title
+
+K:A
+EOT
+            ]
+        ];
     }
 }
 
