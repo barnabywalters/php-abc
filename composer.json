@@ -1,0 +1,14 @@
+{
+    "name": "barnabywalters/php",
+    "description": "A partial ABC notation parser.",
+    "authors": [
+        {
+            "name": "Barnaby Walters",
+            "email": "barnaby@waterpigs.co.uk"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+
+    }
+}
