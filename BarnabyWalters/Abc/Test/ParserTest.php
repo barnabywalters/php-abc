@@ -65,6 +65,20 @@ EOT
                 <<<EOT
 T:  Title        
 EOT
+            ],
+            // Test handles multiple header values
+            [
+                [
+                    'T' => ['Title'],
+                    'K' => ['C', 'G']
+                ],
+                <<<EOT
+T:Title
+K:C
+abc|def|gab
+K:G
+GAB|cde
+EOT
             ]
         ];
     }
