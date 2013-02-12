@@ -36,7 +36,7 @@ class Parser {
             $header = explode(':', $line, 2);
             
             // Add the info to the return array
-            $headers[$header[0]][] = $header[1];
+            $headers[$header[0]][] = trim($header[1]);
         }
         
         return $headers;

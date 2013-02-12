@@ -56,6 +56,15 @@ T:Title
 abc|def
 K:G
 EOT
+            ],
+            // Test Trims whitespace from values
+            [
+                [
+                    'T' => ['Title']
+                ],
+                <<<EOT
+T:  Title        
+EOT
             ]
         ];
     }
