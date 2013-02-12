@@ -44,6 +44,18 @@ T:Title
 
 K:A
 EOT
+            ],
+            // Test Handles Headers within a tune body
+            [
+                [
+                    'T' => ['Title'],
+                    'K' => ['G']
+                ],
+                <<<EOT
+T:Title
+abc|def
+K:G
+EOT
             ]
         ];
     }
