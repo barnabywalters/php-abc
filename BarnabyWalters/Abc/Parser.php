@@ -9,7 +9,7 @@ namespace BarnabyWalters\Abc;
  * 
  * Example Usage:
  * 
- * $headers = Parser::getHeaders($abcString);
+ * <code>$headers = Parser::getHeaders($abcString);</code>
  * 
  * @author Barnaby Walters
  */

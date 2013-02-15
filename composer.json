@@ -7,6 +7,11 @@
             "email": "barnaby@waterpigs.co.uk"
         }
     ],
+    "autoload": {
+        "psr-0" : {
+            "BarnabyWalters": ""
+        }
+    },
     "minimum-stability": "dev",
     "require": {
 
