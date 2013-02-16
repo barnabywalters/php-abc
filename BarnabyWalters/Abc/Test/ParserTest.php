@@ -102,6 +102,17 @@ EOT;
         $result = Parser::getTuneBody($test);
         $this->assertEquals("this is the text\nwhich should be returned", $result);
     }
+    
+    public function testGetTuneHeadReturnsLinesBeforeK() {
+        $test = <<<EOT
+T:The Title
+K:G
+this text
+which should not be returned
+EOT;
+        $result = Parser::getTuneHead($test);
+        $this->assertEquals("T:The Title\nK:G", $result);
+    }
 }
 
 // EOF

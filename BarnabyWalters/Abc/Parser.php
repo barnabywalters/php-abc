@@ -59,6 +59,24 @@ class Parser {
             }
         }
     }
+    
+    public static function getTuneHead($abc) {
+        // Is there a K: field? If not we can’t tell so return the whole thing
+        if (strstr($abc, 'K:') === false) {
+            return $abc;
+        } else {
+            // If there is return every line before K:
+            $lines = preg_split('/$\R?^/m', $abc);
+            
+            foreach ($lines as $i => $line) {
+                if (strstr($line, 'K:') === false)
+                    continue;
+                
+                // This one is the K: line, return <= this joined by \n
+                return implode(PHP_EOL, array_slice($lines, 0, $i + 1));
+            }
+        }
+    }
 }
 
 // EOF
