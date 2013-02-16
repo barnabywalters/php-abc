@@ -17,7 +17,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
      * @param array $expected
      * @param string $abc
      */
-    public function testParsing(array $expected, $abc) {
+    public function testHeaderParsing(array $expected, $abc) {
         $result = Parser::getHeaders($abc);
         
         $this->assertEquals($result, $expected);
@@ -81,6 +81,26 @@ GAB|cde
 EOT
             ]
         ];
+    }
+    
+    public function testGetTuneBodyReturnsWholeStringIfNoKSet() {
+        $test = <<<EOT
+some random multiline
+text and stuff
+EOT;
+        $result = Parser::getTuneBody($test);
+        $this->assertEquals($result, $test);
+    }
+    
+    public function testGetTuneBodyReturnsLinesAfterK() {
+        $test = <<<EOT
+T:The Title
+K:G
+this is the text
+which should be returned
+EOT;
+        $result = Parser::getTuneBody($test);
+        $this->assertEquals("this is the text\nwhich should be returned", $result);
     }
 }
 
