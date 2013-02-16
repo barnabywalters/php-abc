@@ -51,11 +51,11 @@ class Parser {
             $lines = preg_split('/$\R?^/m', $abc);
             
             foreach ($lines as $i => $line) {
-                if (strstr($line, 'K:') === false)
+                if ($line[1] == ':' and $line[0] !== '|')
                     continue;
                 
-                // This one is the K: line, return lines after this joined by \n
-                return implode(PHP_EOL, array_slice($lines, $i + 1));
+                // This one is the first body line, return lines after this joined by \n
+                return implode(PHP_EOL, array_slice($lines, $i));
             }
         }
     }
@@ -69,11 +69,11 @@ class Parser {
             $lines = preg_split('/$\R?^/m', $abc);
             
             foreach ($lines as $i => $line) {
-                if (strstr($line, 'K:') === false)
+                if ($line[1] == ':' and $line[0] !== '|')
                     continue;
                 
-                // This one is the K: line, return <= this joined by \n
-                return implode(PHP_EOL, array_slice($lines, 0, $i + 1));
+                // This one is the first non-header line, return < this joined by \n
+                return implode(PHP_EOL, array_slice($lines, 0, $i));
             }
         }
     }
