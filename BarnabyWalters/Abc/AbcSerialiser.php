@@ -10,6 +10,8 @@ use Taproot\Librarian as L;
  * 
  * A serialiser class for Taproot\Librarian which enables plain ABC files to be
  * stored, read and indexed just like a YAML or JSON file.
+ * 
+ * This does not actually currently work. Do not use it.
  */
 class AbcSerialiser implements EventDispatcher\EventSubscriberInterface {
 	public static getSubscribedEvents() {
@@ -28,12 +30,16 @@ class AbcSerialiser implements EventDispatcher\EventSubscriberInterface {
 		
 		$headers = Parser::getHeaders($abc);
 		
+		$published = Parser::firstMatching('/^Published:/i', $headers['N']);
+		
 		$data = [
+			'_id' => Parser::collapseHeader('X', $headers),
 			'_name' => Parser::collapseHeader('T', $headers),
 			'_key' => Parser::collapseHeader('K', $headers),
 			'_metre' => Parser::collapseHeader('M', $headers),
 			'_composer' => Parser::collapseHeader('C', $headers),
 			'_tags' => $headers['G'],
+			'_published' => $published,
 			'_headers' => $headers,
 			'abc' => $abc
 		];
