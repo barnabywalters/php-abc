@@ -12,6 +12,10 @@
             "BarnabyWalters": ""
         }
     },
+    "require-dev": {
+    	"symfony/event-dispatcher": "2.*",
+    	"taproot/librarian": "*"
+    },
     "minimum-stability": "dev",
     "require": {
 
