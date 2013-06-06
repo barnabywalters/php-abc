@@ -42,6 +42,18 @@ class Parser {
 		return $headers;
 	}
 	
+	public static function collapseHeader($header, array $headers) {
+		if (empty($headers[$header]))
+			return null;
+		
+		if (!is_array($headers[$header]))
+			return null;
+		
+		reset($headers[$header]);
+		
+		return current($headers[$header]);
+	}
+	
 	public static function getTuneBody($abc) {
 		// Is there a K: field? If not we can’t tell so return the whole thing
 		if (strstr($abc, 'K:') === false) {
@@ -77,6 +89,14 @@ class Parser {
 			}
 		}
 	}
+	
+	public static function firstMatching($pattern, array $headerList) {
+		if (empty($headerList))
+			return null;
+		
+		foreach ($headerList as $h) {
+			if (preg_match($pattern, $h))
+				return $h;
+		}
+	}
 }
-
-// EOF

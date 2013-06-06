@@ -113,6 +113,20 @@ EOT;
 		$result = Parser::getTuneHead($test);
 		$this->assertEquals("T:The Title\nK:G", $result);
 	}
+	
+	public function testCollapseHeaderReturnsFirstHeaderOfType() {
+		$headers = [
+			'T' => ['Name 1', 'Name 1']
+		];
+		
+		$this->assertEquals('Name 1', Parser::collapseHeader('T', $headers));
+	}
+	
+	public function testFindsFirstHeaderMatching() {
+		$headers = [
+			'N' => ['Some note', 'Published: 2012-05-03 12:00:00', 'Some other note']
+		];
+		
+		$this->assertEquals('Published: 2012-05-03 12:00:00', Parser::firstMatching('/^Published:/i', $headers['N']));
+	}
 }
-
-// EOF

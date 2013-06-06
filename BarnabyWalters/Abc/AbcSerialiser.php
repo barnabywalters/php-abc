@@ -1,6 +1,6 @@
 <?php
 
-namespace BarnabyWalters\Abc\AbcSerialiser;
+namespace BarnabyWalters\Abc;
 
 use Symfony\Component\EventDispatcher;
 use Taproot\Librarian as L;
@@ -8,8 +8,8 @@ use Taproot\Librarian as L;
 /**
  * ABC Serialiser
  * 
- * 
- * 
+ * A serialiser class for Taproot\Librarian which enables plain ABC files to be
+ * stored, read and indexed just like a YAML or JSON file.
  */
 class AbcSerialiser implements EventDispatcher\EventSubscriberInterface {
 	public static getSubscribedEvents() {
@@ -19,11 +19,30 @@ class AbcSerialiser implements EventDispatcher\EventSubscriberInterface {
 		];
 	}
 	
-	public function unserialise(L\CrudEvent $event) {
+	public static getExtension() {
+		return 'abc';
+	}
 	
+	public function unserialise(L\CrudEvent $event) {
+		$abc = $event->getData();
+		
+		$headers = Parser::getHeaders($abc);
+		
+		$data = [
+			'_name' => Parser::collapseHeader('T', $headers),
+			'_key' => Parser::collapseHeader('K', $headers),
+			'_metre' => Parser::collapseHeader('M', $headers),
+			'_composer' => Parser::collapseHeader('C', $headers),
+			'_tags' => $headers['G'],
+			'_headers' => $headers,
+			'abc' => $abc
+		];
+		
+		$event->setData($data);
 	}
 	
 	public function serialise(L\CrudEvent $event) {
-		
+		$abc = $event->getData()['abc'];
+		$event->setData($abc);
 	}
 }
